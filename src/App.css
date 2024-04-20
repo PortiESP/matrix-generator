@@ -6,23 +6,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* position: relative; */
+    position: relative;
     color: #0004;
+    cursor: pointer;
+    ::selection {
+        background: transparent;
+    }
 
     &.selected {
         background: black;
         color: #fff4;
     }
 
-    .value {
-        font-size: 0.8em;
-    }
-
     .ij {
-        position: absolute;
         font-size: 0.5em;
-        bottom: 0;
-        right: 0;
     }
 }
 

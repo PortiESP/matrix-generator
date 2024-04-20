@@ -54,6 +54,22 @@
         }
     }
 
+    .info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        gap: 10px;
+        color: #0008;
+        font-style: italic;
+
+        input[type="checkbox"] {
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+    }
+
     .buttons {
         display: flex;
         justify-content: center;
@@ -76,6 +92,14 @@
             &.selected {
                 background: black;
                 color: white;
+            }
+        }
+
+        .reset-btn {
+            background-color: #ff7676;
+            color: white;
+            &:hover {
+                background-color: #f00;
             }
         }
     }

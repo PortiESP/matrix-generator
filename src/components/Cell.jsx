@@ -14,10 +14,9 @@ export default function Cell(props) {
     }
 
     return (
-        <div key={`${i}-${j}`} className={className} onClick={(e) => handleClick(e, i, j)} onContextMenu={(e) => handleClick(e, i, j)}>
+        <div key={`${i}-${j}`} title={`${i}/${j}`} className={className} onClick={(e) => handleClick(e, i, j)} onContextMenu={(e) => handleClick(e, i, j)}>
             {data.showCellInfo && (
                 <>
-                    <span className="value">{cell}</span>
                     <span className="ij">
                         {i}/{j}
                     </span>
