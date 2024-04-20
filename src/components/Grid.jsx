@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react"
+import { useEffect } from "react"
 import Cell from "./Cell"
 
 export default function Grid({ grid, setGrid, data }) {
@@ -22,15 +22,12 @@ export default function Grid({ grid, setGrid, data }) {
     }
     const handleMouseMove = (e) => {
         e.preventDefault()
-        console.log("Mouse move", data.rows, data.cols)
         if (!window.mouseRDown && !window.mouseLDown) return
-
-        console.log(window.mouseRDown, window.mouseLDown)
 
         const { x, y } = document.querySelector(".grid").getBoundingClientRect()
 
-        const i = Math.floor((e.clientY - y) / 32)
-        const j = Math.floor((e.clientX - x) / 32)
+        const i = Math.floor((e.clientY - y) / data.cellSize)
+        const j = Math.floor((e.clientX - x) / data.cellSize)
         if (i >= 0 && i < rows && j >= 0 && j < cols) {
             setGrid((old) => {
                 const copy = old.map((row) => [...row])
@@ -40,7 +37,6 @@ export default function Grid({ grid, setGrid, data }) {
             })
         }
     }
-    console.log("Grid rendered", data.rows, data.cols)
 
     useEffect(() => {
         document.addEventListener("mousedown", (e) => handleMouseDown(e.button))

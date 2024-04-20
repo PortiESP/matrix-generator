@@ -2,3 +2,36 @@
     background: black;
 }
 
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* position: relative; */
+    color: #0004;
+
+    &.selected {
+        background: black;
+        color: #fff4;
+    }
+
+    .value {
+        font-size: 0.8em;
+    }
+
+    .ij {
+        position: absolute;
+        font-size: 0.5em;
+        bottom: 0;
+        right: 0;
+    }
+}
+
+code {
+    background: #0002;
+    color: #0008;
+    padding: 2px 6px;
+    color: #f13800be;
+    font-family: "Courier New", Courier, monospace;
+
+    border-radius: 0.5em;
+}
