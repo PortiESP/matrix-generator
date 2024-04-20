@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
-import CONSTS from "../data/constants"
+import { useEffect } from "react"
 import Cell from "./Cell"
-const { unselected, selected, rows, cols, cellSize } = CONSTS
 
-export default function Grid({ grid, setGrid }) {
+export default function Grid({ grid, setGrid, data }) {
+    const { rows, cols, cellSize, selected, unselected } = data
+
     function handleClick(i, j, value) {
         setGrid((old) => {
             const copy = old.map((row) => [...row])
@@ -55,7 +55,7 @@ export default function Grid({ grid, setGrid }) {
 
     return (
         <div className="grid" style={gridStyle}>
-            {grid.map((row, i) => row.map((cell, j) => <Cell key={`${i}-${j}`} i={i} j={j} cell={cell} handleClick={handleClick} />))}
+            {grid.map((row, i) => row.map((cell, j) => <Cell key={`${i}-${j}`} i={i} j={j} cell={cell} handleClick={handleClick} data={data} />))}
         </div>
     )
 }

@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react"
 import "./App.css"
 import Grid from "./components/Grid"
-import CONSTS from "./data/constants"
+import GLOBAL from "./data/globals"
+import Input from "./components/Input"
 
-const { rows, cols } = CONSTS
-
-function loadGrid() {
+function loadGrid(rows, cols) {
     const grid = JSON.parse(localStorage.getItem("grid"))
     if (grid) return grid
     else return Array.from({ length: rows }, () => Array.from({ length: cols }, () => 0))
 }
 
 function App() {
-    const [grid, setGrid] = useState(loadGrid())
+    const [data, setData] = useState(GLOBAL)
+    const [grid, setGrid] = useState(loadGrid(data.rows, data.cols))
 
     // Store grid in local storage
     useEffect(() => {
@@ -21,7 +21,12 @@ function App() {
 
     return (
         <div className="wrapper">
-            <Grid grid={grid} setGrid={setGrid} />
+            <div className="params">
+                <Input label="Rows" data={data} />
+                <Input label="Cols" data={data} />
+                <Input label="Cell size" />
+            </div>
+            <Grid grid={grid} setGrid={setGrid} data={data} />
             <div className="buttons">
                 <button onClick={() => window.location.reload()}>Reset</button>
                 <button onClick={() => navigator.clipboard.writeText(JSON.stringify(grid))}>Copy</button>

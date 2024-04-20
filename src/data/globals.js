@@ -1,4 +1,4 @@
-const CONSTS = {
+const GLOBAL = {
     // Grid values
     unselected: 0,
     selected: 1,
@@ -9,4 +9,4 @@ const CONSTS = {
     cellSize: 32,
 }
 
-export default CONSTS
+export default GLOBAL

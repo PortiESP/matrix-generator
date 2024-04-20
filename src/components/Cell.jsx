@@ -1,13 +1,10 @@
-import CONSTS from "../data/constants"
-const { cellSize, selected, unselected } = CONSTS
-
-const buttonToValue = {
-    0: selected,
-    2: unselected,
-}
-
 export default function Cell(props) {
-    const { i, j, cell } = props
+    const { i, j, cell, data } = props
+    const { cellSize, selected, unselected } = data
+    const buttonToValue = {
+        0: selected,
+        2: unselected,
+    }
 
     const backgroundColor = cell === 1 ? "black" : "white"
     const cellStyle = {
