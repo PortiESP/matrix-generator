@@ -5,7 +5,7 @@ const GLOBAL = {
 
     // Grid dimensions
     rows: 20,
-    cols: 40,
+    cols: 24,
     cellSize: 32,
 }
 

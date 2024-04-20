@@ -2,11 +2,10 @@ import { useEffect, useState } from "react"
 import "./App.css"
 import Grid from "./components/Grid"
 import GLOBAL from "./data/globals"
-import Input from "./components/Input"
 
 function loadGrid(rows, cols) {
     const grid = JSON.parse(localStorage.getItem("grid"))
-    if (grid) return grid
+    if (grid && grid.length === rows && grid[0].length === cols) return grid
     else return Array.from({ length: rows }, () => Array.from({ length: cols }, () => 0))
 }
 
@@ -21,11 +20,6 @@ function App() {
 
     return (
         <div className="wrapper">
-            <div className="params">
-                <Input label="Rows" data={data} />
-                <Input label="Cols" data={data} />
-                <Input label="Cell size" />
-            </div>
             <Grid grid={grid} setGrid={setGrid} data={data} />
             <div className="buttons">
                 <button onClick={() => window.location.reload()}>Reset</button>
