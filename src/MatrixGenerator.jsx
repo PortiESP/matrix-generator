@@ -48,7 +48,7 @@ function initGlobal() {
     else return GLOBAL
 }
 
-function App() {
+function MatrixGenerator() {
     const [data, setData] = useState(initGlobal())
     const [grid, setGrid] = useState(loadGrid(data.rows, data.cols))
 
@@ -100,4 +100,4 @@ function App() {
     )
 }
 
-export default App
+export default MatrixGenerator
