@@ -5,8 +5,10 @@ import Input from "./components/Input"
 
 const GLOBAL = {
     // Grid values
-    unselected: 0,
     selected: 1,
+    unselected: 0,
+    outputSelected: 1,
+    outputUnselected: 0,
 
     // Grid dimensions
     rows: 20,
@@ -60,6 +62,13 @@ function App() {
         localStorage.setItem("grid", JSON.stringify(grid))
     }, [grid])
 
+    const outputGrid = () => {
+        const result = grid.map((row) => row.map((cell) => (cell ? data.outputSelected : data.outputUnselected)))
+        return JSON.stringify(result)
+    }
+
+    console.log(data)
+
     return (
         <div className="wrapper">
             <div className="params">
@@ -75,12 +84,17 @@ function App() {
             <p className="hint">
                 Use <code>L-Click</code> to activate cells and <code>R-Click</code> to deactivate cells. Also, you can <strong>drag the mouse</strong> to activate or deactivate multiple cells.
             </p>
+            <p className="hint">Choose the output values</p>
+            <div className="params-output">
+                <Input type="text" def={1} label="Selected" setValue={(value) => setData((old) => ({ ...old, outputSelected: value }))} />
+                <Input type="text" def={0} label="Unselect" setValue={(value) => setData((old) => ({ ...old, outputUnselected: value }))} />
+            </div>
             <div className="buttons">
                 <button onClick={() => setGrid(newGrid(data.rows, data.cols))} className="reset-btn">
                     Reset
                 </button>
-                <button onClick={() => navigator.clipboard.writeText(JSON.stringify(grid))}>Copy</button>
-                <button onClick={() => console.log(JSON.stringify(grid))}>Console.log</button>
+                <button onClick={() => navigator.clipboard.writeText(outputGrid())}>Copy</button>
+                <button onClick={() => console.log(outputGrid())}>Console.log</button>
             </div>
         </div>
     )

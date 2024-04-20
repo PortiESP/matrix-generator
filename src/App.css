@@ -9,6 +9,7 @@
     position: relative;
     color: #0004;
     cursor: pointer;
+    position: relative;
     ::selection {
         background: transparent;
     }

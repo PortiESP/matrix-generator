@@ -70,6 +70,27 @@
         }
     }
 
+    .params-output {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        gap: 10px;
+        color: #0008;
+        font-style: italic;
+
+        input {
+            padding: 2px 0px;
+            border-radius: 5px;
+            border: none;
+            margin: 0 10px;
+            width: 100px;
+            text-align: center;
+            text-align: center;
+            background: #0001;
+        }
+    }
+
     .buttons {
         display: flex;
         justify-content: center;
