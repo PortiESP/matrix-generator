@@ -1,10 +1,10 @@
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import Cell from "./Cell"
 
 export default function Grid({ grid, setGrid, data }) {
     const { rows, cols, cellSize, selected, unselected } = data
 
-    function handleClick(i, j, value) {
+    const handleClick = (i, j, value) => {
         setGrid((old) => {
             const copy = old.map((row) => [...row])
             copy[i][j] = value
@@ -12,16 +12,17 @@ export default function Grid({ grid, setGrid, data }) {
         })
     }
 
-    function handleMouseUp(btn) {
+    const handleMouseUp = (btn) => {
         if (btn === 0) window.mouseLDown = false
         if (btn === 2) window.mouseRDown = false
     }
-    function handleMouseDown(btn) {
+    const handleMouseDown = (btn) => {
         if (btn === 0) window.mouseLDown = true
         if (btn === 2) window.mouseRDown = true
     }
-    function handleMouseMove(e) {
+    const handleMouseMove = (e) => {
         e.preventDefault()
+        console.log("Mouse move", data.rows, data.cols)
         if (!window.mouseRDown && !window.mouseLDown) return
 
         console.log(window.mouseRDown, window.mouseLDown)
@@ -39,17 +40,19 @@ export default function Grid({ grid, setGrid, data }) {
             })
         }
     }
+    console.log("Grid rendered", data.rows, data.cols)
 
     useEffect(() => {
         document.addEventListener("mousedown", (e) => handleMouseDown(e.button))
         document.addEventListener("mouseup", (e) => handleMouseUp(e.button))
         document.addEventListener("mousemove", handleMouseMove)
+
         return () => {
             document.removeEventListener("mousedown", handleMouseDown)
             document.removeEventListener("mouseup", handleMouseUp)
             document.removeEventListener("mousemove", handleMouseMove)
         }
-    }, [])
+    }, [data])
 
     const gridStyle = { display: "grid", gridTemplateColumns: `repeat(${cols}, ${cellSize}px)`, gridTemplateRows: `repeat(${rows}, ${cellSize}px)` }
 
