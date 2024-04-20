@@ -20,11 +20,11 @@ const GLOBAL = {
 function loadGrid(rows, cols) {
     const grid = JSON.parse(localStorage.getItem("grid"))
     if (grid && grid.length === rows && grid[0].length === cols) return grid
-    else return resizeGrid(rows, cols, grid)
+    else return newGrid(rows, cols)
 }
 
 function resizeGrid(rows, cols, grid = undefined) {
-    if (!grid) return Array.from({ length: rows }, () => Array.from({ length: cols }, () => GLOBAL.unselected))
+    if (!grid) return newGrid(rows, cols)
     else {
         const newGrid = Array.from({ length: rows }, () => Array.from({ length: cols }, () => GLOBAL.unselected))
         for (let i = 0; i < Math.min(rows, grid.length); i++) {
@@ -34,6 +34,10 @@ function resizeGrid(rows, cols, grid = undefined) {
         }
         return newGrid
     }
+}
+
+function newGrid(rows, cols) {
+    return Array.from({ length: rows }, () => Array.from({ length: cols }, () => GLOBAL.unselected))
 }
 
 function initGlobal() {
@@ -48,7 +52,7 @@ function App() {
 
     // Store grid in local storage
     useEffect(() => {
-        setGrid(loadGrid(data.rows, data.cols))
+        setGrid(resizeGrid(data.rows, data.cols, grid))
         console.log(grid)
     }, [data])
 
@@ -72,7 +76,7 @@ function App() {
                 Use <code>L-Click</code> to activate cells and <code>R-Click</code> to deactivate cells. Also, you can <strong>drag the mouse</strong> to activate or deactivate multiple cells.
             </p>
             <div className="buttons">
-                <button onClick={() => window.location.reload()} className="reset-btn">
+                <button onClick={() => setGrid(newGrid(data.rows, data.cols))} className="reset-btn">
                     Reset
                 </button>
                 <button onClick={() => navigator.clipboard.writeText(JSON.stringify(grid))}>Copy</button>
