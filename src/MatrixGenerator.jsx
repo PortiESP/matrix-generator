@@ -13,7 +13,7 @@ const GLOBAL = {
     // Grid dimensions
     rows: 20,
     cols: 24,
-    cellSize: 32,
+    cellSize: 16,
 
     // Show cell info
     showCellInfo: false,
