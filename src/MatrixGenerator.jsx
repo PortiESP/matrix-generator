@@ -49,6 +49,18 @@ function initGlobal() {
     else return GLOBAL
 }
 
+function loadFromAlert(data) {
+    const matrix = eval(prompt("Paste the JSON data here.\n⚠️ Use the 'selected' and 'unselected' inputs to match the values of your matrix ⚠️"))
+    if (!matrix) alert("Invalid data")
+    else {
+        const parsed = matrix.map((row) => row.map((cell) => (cell === data.outputSelected ? 1 : 0)))
+        localStorage.setItem("grid", JSON.stringify(parsed))
+        location.reload()
+    }
+
+    location.reload()
+}
+
 function MatrixGenerator() {
     const [data, setData] = useState(initGlobal())
     const [grid, setGrid] = useState(loadGrid(data.rows, data.cols))
@@ -91,6 +103,9 @@ function MatrixGenerator() {
                 <Input type="text" def={0} label="Unselect" setValue={(value) => setData((old) => ({ ...old, outputUnselected: value }))} />
             </div>
             <div className="buttons">
+                <button onClick={() => loadFromAlert(data)} className="load-btn">
+                    Load
+                </button>
                 <button onClick={() => setGrid(newGrid(data.rows, data.cols))} className="reset-btn">
                     Reset
                 </button>

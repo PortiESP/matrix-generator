@@ -127,7 +127,15 @@
             background-color: #ff7676;
             color: white;
             &:hover {
-                background-color: #f00;
+                background-color: rgba(255, 0, 0, 0.671);
+            }
+        }
+
+        .load-btn {
+            background-color: #005d81ad;
+            color: white;
+            &:hover {
+                background-color: #005c81d7;
             }
         }
     }
