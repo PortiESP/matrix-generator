@@ -1,8 +1,11 @@
-# React + Vite
+# Online Matrix Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple online matrix generator that allows you to create a matrix of any size and fill it with random numbers.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   Create a matrix of any size
+-   Drag to select multiple cells
+-   Adjust the cell size
+-   Copy the matrix to the clipboard
+-   Load a matrix from a JSON string
