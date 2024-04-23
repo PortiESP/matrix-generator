@@ -43,8 +43,9 @@ function newGrid(rows, cols) {
 }
 
 function initGlobal() {
+    const cellSize = localStorage.getItem("cell-size")
     const grid = JSON.parse(localStorage.getItem("grid"))
-    if (grid) return { ...GLOBAL, rows: grid.length, cols: grid[0]?.length }
+    if (grid) return { ...GLOBAL, rows: grid.length, cols: grid[0]?.length, cellSize: cellSize || GLOBAL.cellSize }
     else return GLOBAL
 }
 
@@ -55,7 +56,7 @@ function MatrixGenerator() {
     // Store grid in local storage
     useEffect(() => {
         setGrid(resizeGrid(data.rows, data.cols, grid))
-        console.log(grid)
+        localStorage.setItem("cell-size", data.cellSize)
     }, [data])
 
     useEffect(() => {

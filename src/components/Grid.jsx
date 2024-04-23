@@ -1,8 +1,10 @@
 import { useEffect } from "react"
 import Cell from "./Cell"
+import { useRef } from "react"
 
 export default function Grid({ grid, setGrid, data }) {
     const { rows, cols, cellSize, selected, unselected } = data
+    const $cursorCell = useRef(null)
 
     const handleClick = (i, j, value) => {
         setGrid((old) => {
@@ -22,20 +24,30 @@ export default function Grid({ grid, setGrid, data }) {
     }
     const handleMouseMove = (e) => {
         e.preventDefault()
-        if (!window.mouseRDown && !window.mouseLDown) return
 
+        // Get the cell coordinates
         const { x, y } = document.querySelector(".grid").getBoundingClientRect()
-
         const i = Math.floor((e.clientY - y) / data.cellSize)
         const j = Math.floor((e.clientX - x) / data.cellSize)
-        if (i >= 0 && i < rows && j >= 0 && j < cols) {
-            setGrid((old) => {
-                const copy = old.map((row) => [...row])
-                if (window.mouseLDown) copy[i][j] = selected
-                if (window.mouseRDown) copy[i][j] = unselected
-                return copy
-            })
+
+        if (!(i >= 0 && i < rows && j >= 0 && j < cols)) {
+            $cursorCell.current.innerText = "Cell: -/-"
+            return
         }
+
+        // Update the cursor cell info
+        $cursorCell.current.innerText = `Cell: ${i}/${j}`
+
+        // If the mouse is not down, return
+        if (!window.mouseRDown && !window.mouseLDown) return
+
+        // Update the grid
+        setGrid((old) => {
+            const copy = old.map((row) => [...row])
+            if (window.mouseLDown) copy[i][j] = selected
+            if (window.mouseRDown) copy[i][j] = unselected
+            return copy
+        })
     }
 
     useEffect(() => {
@@ -53,8 +65,13 @@ export default function Grid({ grid, setGrid, data }) {
     const gridStyle = { display: "grid", gridTemplateColumns: `repeat(${cols}, ${cellSize}px)`, gridTemplateRows: `repeat(${rows}, ${cellSize}px)` }
 
     return (
-        <div className="grid" style={gridStyle}>
-            {grid.map((row, i) => row.map((cell, j) => <Cell key={`${i}-${j}`} i={i} j={j} cell={cell} handleClick={handleClick} data={data} />))}
-        </div>
+        <>
+            <div className="grid" style={gridStyle}>
+                {grid.map((row, i) => row.map((cell, j) => <Cell key={`${i}-${j}`} i={i} j={j} cell={cell} handleClick={handleClick} data={data} />))}
+            </div>
+            <span id="cursor-cell" ref={$cursorCell}>
+                Cell: 0/0
+            </span>
+        </>
     )
 }
